@@ -31,6 +31,30 @@ public class TestPet extends BaseClass {
         assertEquals(expectedStatus, actualStatus);
     }
 
+    @Test
+    @DisplayName("Check to POST request")
+    public void postRequestTest() {
+        TagPet tag = new TagPet(25, "Bengal cat");
+        Category category = new Category(1, "Cat");
+        Pet pet = new Pet(1234, category, "Mouse", new ArrayList<>(), new ArrayList<>(Collections.singletonList(tag)), "available");
+        setRequestPost(EndPoinPet.PET, pet)
+                .then()
+                .assertThat()
+                .body(matchesJsonSchema(jsonSchema));
+    }
+
+    @Test
+    @DisplayName("Check to PUT request")
+    public void putRequestTest() {
+        TagPet tag = new TagPet(31, "Norwegian cat");
+        Category category = new Category(3, "Cat");
+        Pet pet = new Pet(1234, category, "Alice", new ArrayList<>(), new ArrayList<>(Collections.singletonList(tag)), "available");
+        setRequestPut(EndPoinPet.PET, pet)
+                .then()
+                .assertThat()
+                .body(matchesJsonSchema(jsonSchema));
+    }
+
 
     @Test
     @DisplayName("Check to Delete request")
@@ -74,26 +98,4 @@ public class TestPet extends BaseClass {
 
 
 
-//@Test
-//    @DisplayName("Check to POST request")
-//    public void postRequestTest() {
-//        TagPet tag = new TagPet(25, "Bengal cat");
-//        Category category = new Category(1, "Cat");
-//        Pet pet = new Pet(1234, category, "Mouse", new ArrayList<>(), new ArrayList<>(Collections.singletonList(tag)), "available");
-//        setRequestPost(EndPoinPet.PET, pet)
-//                .then()
-//                .assertThat()
-//                .body(matchesJsonSchema(jsonSchema));
-//    }
-//
-//    @Test
-//    @DisplayName("Check to PUT request")
-//    public void putRequestTest() {
-//        TagPet tag = new TagPet(31, "Norwegian cat");
-//        Category category = new Category(3, "Cat");
-//        Pet pet = new Pet(1234, category, "Alice", new ArrayList<>(), new ArrayList<>(Collections.singletonList(tag)), "available");
-//        setRequestPut(EndPoinPet.PET, pet)
-//                .then()
-//                .assertThat()
-//                .body(matchesJsonSchema(jsonSchema));
-//    }
+
